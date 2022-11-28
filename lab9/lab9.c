@@ -28,7 +28,7 @@ int EstLiProbitie(int i, int j) {
 //отрисовка движения
 int otrisovkaDvizjenia(int i, int j, int l) {
     int ni, nj, nl, k = 0;
-    while (k < 50) {
+    while (k <= 50) {
         if (EstLiProbitie(i, j) == 1) {
             printf("Есть пробитие i=%d j=%d l=%d k=%d", i, j, l, k);
             return 1;

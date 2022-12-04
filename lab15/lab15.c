@@ -21,7 +21,7 @@ int main()
     printf("Ваша матрица\n");
     for(int i = 0; i < n; ++i){
         for(int j = 0; j < n; ++j){
-            printf("%d   ", matrix[i][j]);
+            printf("%8d", matrix[i][j]);
         }
         printf("\n");
     }
@@ -56,10 +56,10 @@ int main()
     }
     
     //выводи итог
-    printf("\nВаша итоговая матрица\n");
+    printf("\nВаша новая матрица\n");
     for(int i = 0; i < n; ++i){
         for(int j = 0; j < n; ++j){
-            printf("%d   ", matrix[i][j]);
+            printf("%8d", matrix[i][j]);
         }
         printf("\n");
     }

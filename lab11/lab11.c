@@ -19,11 +19,11 @@ bool max_of(int a, int b){
     return (a > b) ? 1 : 0;
 }
 
-bool is_NewWord (char symbol) {
+bool is_NewWord(char symbol) {
     return (symbol == '\n' || symbol == '\t' || symbol == ',' || symbol == ' ') ? 1 : 0;
 }
 
-bool is_Number (char symbol) {
+bool is_Number(char symbol) {
     return (symbol >= '0' && symbol <= '9' || symbol >= 'a' && symbol <= 'f') ? 1 : 0;
 }
 
@@ -79,7 +79,35 @@ void printArray (int n, char array [n]) {
     printf("\n");
 }
 
+void test_max_of() {
+    assert(max_of(5,4) == 1);
+    assert(max_of(4,5) == 0);
+}
+
+void test_is_NewWord() {
+    assert(is_NewWord(' ') == 1);
+    assert(is_NewWord('4') == 0);
+}
+
+void test_is_Number() {
+    assert(is_Number('4') == 1);
+    assert(is_Number(']') == 0);
+}
+
+void test_hex_to_bin() {
+    assert(hex_to_bin(6,"adadad") == 24);
+    assert(hex_to_bin(2,"cc") == 8);
+}
+
+void super_tests() {
+    test_max_of();
+    test_is_NewWord();
+    test_is_Number();
+    test_hex_to_bin();
+}
+
 int main () {
+    super_tests();
     int max_value = 0;
     int ch_num = 0;
     State state = NewWord;

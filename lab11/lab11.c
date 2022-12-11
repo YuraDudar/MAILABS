@@ -1,6 +1,6 @@
 /*********************************************************************************
 Если Яндекс показывает совершенно ясную погоду, а на небе собирается грозовая туча 
-                          - не верь своим глазам.
+                          - не верь глазам своим.
 
 **********************************************************************************/
 #include <stdlib.h>
@@ -20,17 +20,11 @@ bool max_of(int a, int b){
 }
 
 bool is_NewWord (char symbol) {
-    if (symbol == '\n' || symbol == '\t' || symbol == ',' || symbol == ' ') {
-        return true;
-    }
-    return false;
+    return (symbol == '\n' || symbol == '\t' || symbol == ',' || symbol == ' ') ? 1 : 0;
 }
 
 bool is_Number (char symbol) {
-    if (symbol >= '0' && symbol <= '9' || symbol >= 'a' && symbol <= 'f') {
-        return true;
-    }
-    return false;
+    return (symbol >= '0' && symbol <= '9' || symbol >= 'a' && symbol <= 'f') ? 1 : 0;
 }
 
 char append(char str1[], char str2[]){

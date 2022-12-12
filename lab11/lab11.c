@@ -11,6 +11,7 @@
 
 typedef enum {
     NewWord,
+    Rubbish,
     Number
 } State; 
 
@@ -24,6 +25,13 @@ bool is_NewWord(char symbol) {
 
 bool is_Number(char symbol) {
     return (symbol >= '0' && symbol <= '9' || symbol >= 'a' && symbol <= 'f') ? 1 : 0;
+}
+
+bool is_Rubbish (char symbol) {
+    if (((symbol < '0' || symbol > '9') && (symbol < 'a' || symbol > 'f')) && is_NewWord(symbol) == false) {
+        return true;
+    }
+    return false;
 }
 
 char append(char str1[], char str2[]){
@@ -107,6 +115,9 @@ void super_tests() {
 
 int main () {
     super_tests();
+    int dop_counter = 0;
+    int mass_ch_num[1000] = {0};
+    char hex_words[1000][8];
     int max_value = 0;
     int ch_num = 0;
     State state = NewWord;
@@ -117,8 +128,13 @@ int main () {
     while ((symbol = tolower(getchar())) != '+') {
         switch (state) {
             case NewWord:
+                if (is_Rubbish(symbol)) {
+                    state = Rubbish;
+                    break;
+                }
                 number = (char *) malloc(1);
                 if (is_Number(symbol)) {
+                    //dop_counter++;
                     firstZero = symbol - '0';
                     if (firstZero == 0) {
                         break;
@@ -132,7 +148,17 @@ int main () {
                     number = (char *) realloc(number, i + 1);
                     break;
                 }
+            case Rubbish:
+                if (is_NewWord(symbol)) {
+                    state = NewWord;
+                }
+                break;
             case Number:
+                if (is_Rubbish(symbol)) {
+                    i = 0;
+                    state = Rubbish;
+                    break;
+                }
                 if (is_Number(symbol)) {
                     if (flag) {
                         firstZero = symbol - '0';
@@ -157,8 +183,14 @@ int main () {
                     ch_num = hex_to_bin(i,number);
                     if(max_of(ch_num,max_value)){
                         max_value = ch_num;
-                        strcpy(largest_number, number);
                     }
+                    for(int p = 0; p < i; p++){
+                        hex_words[dop_counter][p]=number[p];
+                    }
+                    /*hex_words[dop_counter-1] = (char *) malloc(1);
+                    hex_words[dop_counter-1] = number;*/
+                    mass_ch_num[dop_counter] = hex_to_bin(i,number);
+                    dop_counter++;
                     printf("%d ",hex_to_bin(i,number));
                     state = NewWord;
                     printArray(i, number);
@@ -172,6 +204,17 @@ int main () {
                 
         }
     }
-    printArray(strlen(largest_number),largest_number);
+    int max_num_in_mass = 0;
+    int index_num = 0;
+    printf("%d\n", dop_counter);
+    for(int i = 0; i < dop_counter; i++){
+        printf("%d ",mass_ch_num[i]);
+    }
+    //printArray(strlen(largest_number),largest_number);
+    for(int i = 0; i < dop_counter; i++){
+        if(mass_ch_num[i] == max_value){
+            printf("Ваше число под номером %d ", i+1);
+        }    
+    }
     return 0;
 }
